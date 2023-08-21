@@ -5,8 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.lang.reflect.Method;
 
 @Component
 public class LoggerInterceptor implements HandlerInterceptor {
@@ -27,11 +30,16 @@ public class LoggerInterceptor implements HandlerInterceptor {
 		log.info("Handler execution is complete");
 	}
 
-	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object object) throws Exception {
-		log.info("Before Handler execution");
-		return true;
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	if (handler instanceof HandlerMethod) {
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+		Method method = handlerMethod.getMethod();
+		String className = handlerMethod.getBeanType().getSimpleName();
+		String methodName = method.getName();
+		log.info("Before Handler execution - Class: {}, Method: {}", className, methodName);
 	}
+	return true;
+}
 
 }
