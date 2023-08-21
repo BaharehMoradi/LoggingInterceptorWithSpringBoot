@@ -19,21 +19,29 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<spring-boot.version>3.1.2</spring-boot.version>
+
 	</properties>
 
 	<dependencies>
+<!--		provides the necessary libraries and dependencies for developing web applications using Spring Boot.-->
+<!--		It includes components such as an embedded servlet container (Tomcat, Jetty, or Undertow), Spring MVC for web application development, and other related dependencies.-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<version>3.1.0</version>
+<!--Used to enhance your Maven build process with Spring Boot-specific features and functionality-->
+<!--It is not strictly necessary to include this plugin in your pom.xml file, it is highly recommended when working with Spring Boot projects	-->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
 			</plugin>
 		</plugins>
 	</build>
