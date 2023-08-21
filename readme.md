@@ -1,49 +1,58 @@
-# Spring Boot Interceptor Example
+# Spring Interceptor with Annotations
 
-This is a simple Spring Boot application that demonstrates the usage of interceptors. Interceptors are used to intercept and process HTTP requests and responses in a Spring MVC application.
+This is a sample Spring Boot application that demonstrates the usage of Spring Interceptors with annotations.
 
 ## Prerequisites
 
-- Java 8 or higher
-- Maven 3.9.3
+Before running this application, make sure you have the following prerequisites installed:
+
+- Java Development Kit (JDK) 8 or higher
+- Maven build tool
 
 ## Getting Started
 
+Follow these instructions to run the application on your local machine:
+
 1. Clone the repository or download the source code.
-1. Navigate to the project directory.
+2. Open the project in your preferred IDE.
+3. Build the project using Maven to download the necessary dependencies.
+4. Run the `SpringBootHelloWorldApplication` class to start the Spring Boot application.
+5. Access the API endpoints provided by the `HelloController` class.
 
-## Building and Running the Application
+## Application Overview
 
-1. Open a terminal or command prompt.
-1. Navigate to the project directory.
-1. Run the following command to build the application:
+The application consists of the following components:
 
-```shell
-mvn clean install
-```
+- `HelloController`: This class defines two RESTful API endpoints, `/hello` and `/helloworld`. The `/helloworld` endpoint is annotated with `@Loggable`, indicating that it should be intercepted by the `LoggerInterceptor` class.
 
-4. Once the build is successful, run the following command to start the application:
+- `LoggerInterceptor`: This class implements the `HandlerInterceptor` interface and is responsible for intercepting requests and logging information before handling the requests. It intercepts methods annotated with `@Loggable` and logs the class and method names.
 
-```shell
-mvn spring-boot:run
-```
+- `InterceptorConfig`: This configuration class is responsible for registering the `LoggerInterceptor` as an interceptor using Spring's `WebMvcConfigurerAdapter`.
 
-5. The Spring Boot application will start, and you can access the following endpoint:
+- `Loggable`: This is a custom annotation that can be applied to methods to indicate that they should be intercepted.
 
-```
-http://localhost:8080/hello
-```
+## Interceptor Configuration
 
-## Explanation
+The `LoggerInterceptor` class implements the `HandlerInterceptor` interface and intercepts requests before they are handled by the `HelloController`. It logs information before request handling, after request handling, and after the completion of the request.
 
-- The `InterceptorConfig` class is responsible for registering the `LoggerInterceptor` as an interceptor.
-- The `LoggerInterceptor` class implements the `HandlerInterceptor` interface and provides the logic to be executed before and after handling the request.
-- The `HelloController` class contains a simple REST API endpoint mapped to `/hello`, which logs a message when accessed.
+The `@Loggable` annotation is used to mark methods that should be intercepted by the `LoggerInterceptor`.
 
-## Technologies Used
+## Usage
 
-- Java
-- Spring Boot
-- Maven
+The application exposes the following RESTful API endpoints:
+
+- `GET /hello`: Returns a "Hello!" message. This endpoint is not intercepted.
+
+- `GET /helloworld`: Returns a "Hello World!" message. This endpoint is intercepted by the `LoggerInterceptor` and logs information before the request is handled.
+
+When you access the `/helloworld` endpoint, the `LoggerInterceptor` will log messages to the console, indicating the interception of the method execution.
+
+## Configuration
+
+The application uses Spring's component scanning to automatically detect and configure the components, including the controller, interceptor, and configuration classes.
+
+The project uses Maven as the build tool, and the dependencies are listed in the `pom.xml` file.
 
 ## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
